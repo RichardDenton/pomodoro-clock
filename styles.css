@@ -1,0 +1,17 @@
+#header {
+    text-align:center;
+}
+
+#clockbody {
+    width:80pc;
+    border:1px solid;
+    margin-left:auto;
+    margin-right:auto;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+#timer {
+    grid-column: span 3;
+    text-align:center;
+}
