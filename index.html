@@ -2,33 +2,31 @@
 <html>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet"> 
     <title>Pomodoro Clock</title>
 </html>
 
 <body>
     <div id="main">
         <div id="header">
-            <h1>Pomodoro Clock</h1>
+            <h1 id="title">Pomodoro Clock</h1>
         </div>
         <div id="clockbody">
-            <div class="headercontrol">
-                Session
-            </div>
-            <div class="headercontrol">
-                Break
-            </div>
+            <div class="headercontrol top">Session</div>
+            <div class="headercontrol top">Break</div>
             <div class="headercontrol">
                 <div class="decreasenumber"></div>
-                <div class="timelimit">25:00</div>
+                <div class="timelimit"><p>25:00</p></div>
                 <div claSS="increasenumber"></div>
             </div>
             <div class="headercontrol">
                 <div class="decreasenumber"></div>
-                <div class="timelimit">05:00</div>
+                <div class="timelimit"><p>05:00</p></div>
                 <div claSS="increasenumber"></div>
             </div>
             <div id="timer">
-                25:00
+                <p>25:00</p>
             </div>
             <div class="footer">
                 <div id="playcontrol">
