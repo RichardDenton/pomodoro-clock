@@ -51,6 +51,7 @@ body {
 
 .top {
     align-self: end;
+    padding-top: 15px;
     font-size: 28px;
 }
 
@@ -68,6 +69,10 @@ body {
     outline: none;
     cursor: pointer;
     border: none;
+}
+
+.timertext {
+    margin-bottom: 30px;
 }
 
 .footercontrol:hover {
