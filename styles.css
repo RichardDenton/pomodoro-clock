@@ -1,3 +1,7 @@
+body {
+    background-color: #aaa;
+}
+
 #main {
     font-family: oswald;
 }
@@ -15,18 +19,34 @@
 #clockbody {
     width: 40pc;
     height: 25pc;
-    border:1px solid;
     margin-left: auto;
     margin-right: auto;
     background-color: #333;
-    color: #FFF;
+    color: #fff;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr 1fr 3fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 2fr;
 }
 
 .headercontrol {
     text-align: center;
+}
+
+.timelimit {
+    margin: 5px;
+}
+
+.settimebutton {
+    margin: 8px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.settimebutton:hover {
+    color: #aaa;
 }
 
 .top {
@@ -41,9 +61,22 @@
     text-align: center;
 }
 
+.footercontrol {
+    font-size: 40px;
+    background-color: #333;
+    color: #fff;
+    outline: none;
+    cursor: pointer;
+    border: none;
+}
+
+.footercontrol:hover {
+    color: #aaa;
+}
+
 #timer {
     grid-column: span 2;
-    border-top: 10px solid #fff;
+    border-top: 10px solid #aaa;
     font-size: 60px;
     text-align:center;
 }
