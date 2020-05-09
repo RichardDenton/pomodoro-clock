@@ -1,27 +1,33 @@
-const buttonPress = function(e) {
+const buttonClick = function(e) {
+    if (!clockRunning) {
+        switch (this.id) {
+            case 'decreasetime':
+            case 'increasetime':
+                updateSessionLimit(this.id);
+                break;
+            case 'decreasebreak':
+            case 'increasebreak':
+                updateBreakTime(this.id);
+                break;
+            case 'start':
+                runClock();
+                break;
+        }
+    }
     switch (this.id) {
-        case 'decreasetime':
-        case 'increasetime':
-            updateSessionLimit(this.id);
-            break;
-        case 'decreasebreak':
-        case 'increasebreak':
-            updateBreakTime(this.id);
-            break;
-        case 'start':
-            console.log("Start");
-            break;
         case 'stop':
-            console.log("Stop");
+            clearInterval(timer);    
+            clockRunning = false;
             break;
         case 'reset':
-            console.log("Reset");
+            reset();
             break;
     }
 }
 
 const updateSessionLimit = function(type) {
     let sessionLimit = parseInt(sessionTimeLimit.textContent);
+    sessionType.textContent = "Session";
 
     switch (type) {
         case 'decreasetime':
@@ -34,13 +40,19 @@ const updateSessionLimit = function(type) {
                 sessionLimit++;
             }
             break;
+        case 'reset':
+            sessionLimit = 25;
+            break;
     }
     sessionTimeLimit.textContent = sessionLimit;
-    updateTimerText(timeToString(sessionLimit * 60, 0));
+    timerText.textContent = timeToString(sessionLimit * 60, 0);
+    updateTimerText(sessionLimit * 60);
 }
 
 const updateBreakTime = function(type) {
     let breakTime = parseInt(breakTimeLimit.textContent);
+    let sessionLimit = parseInt(sessionTimeLimit.textContent);
+    sessionType.textContent = "Session";
         
         switch (type) {
             case 'decreasebreak':
@@ -53,12 +65,33 @@ const updateBreakTime = function(type) {
                     breakTime++;
                 }
                 break;
+            case 'reset':
+                breakTime = 5;
+                break;
         }
     breakTimeLimit.textContent = breakTime;
+    updateTimerText(sessionLimit * 60);
 }
 
-const updateTimerText = function(timeString) {
-    timerText.textContent = timeString;
+const runClock = function() {
+    let timeLeft = findNumberOfSeconds();
+    clockRunning = true;
+
+    let timer = setInterval(function() {
+        if (!clockRunning) {
+            clearInterval(timer);
+        }
+        timeLeft--;
+        updateTimerText(timeLeft);
+        if (timeLeft === 0) {
+            changeSessionType();
+            timeLeft = findNumberOfSeconds();
+        }
+    }, 1000)
+}
+
+const updateTimerText = function(totalSeconds) {
+    timerText.textContent = timeToString(totalSeconds);
 }
 
 const timeToString = function(totalSeconds) {
@@ -102,13 +135,52 @@ const timeToString = function(totalSeconds) {
     }
 }
 
+const findNumberOfSeconds = function(){
+    let hours = 0;
+    let minutes = 0;
+    let seconds = 0;
+
+    if (timerText.textContent.length === 8) {
+        hours = parseInt(timerText.textContent.slice(0, 2));
+        minutes = parseInt(timerText.textContent.slice(3, 5));
+        seconds = parseInt(timerText.textContent.slice(6));
+    } else {
+        minutes = parseInt(timerText.textContent.slice(0, 2));
+        seconds = parseInt(timerText.textContent.slice(3));
+    }
+    
+    return hours * 3600 + minutes * 60 + seconds;
+}
+
+const changeSessionType = function() {
+    if (sessionType.textContent === "Session") {
+        sessionType.textContent = "Break";
+        updateTimerText(60 * parseInt(breakTimeLimit.textContent));
+    } else {
+        sessionType.textContent = "Session";
+        updateTimerText(60 * parseInt(sessionTimeLimit.textContent));
+    }
+}
+
+const reset = function() {
+    sessionType.textContent = "Session";
+    clearInterval(timer);
+    clockRunning = false;
+    updateSessionLimit('reset');
+    updateBreakTime('reset');
+}
+
 // Timer maximum values
 const LOWER_LIMIT = 1;
 const UPPER_LIMIT = 120;
 
+let clockRunning = false;
+let timer = true;
+
+const sessionType = document.getElementById('sessiontype');
 const sessionTimeLimit = document.getElementById('sessiontimelimit');
 const breakTimeLimit = document.getElementById('breaktimelimit');
 const timerText = document.getElementById('timertext');
 
 const buttons = document.querySelectorAll("button");
-buttons.forEach(button => button.addEventListener('click', buttonPress));
+buttons.forEach(button => button.addEventListener('click', buttonClick));

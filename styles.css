@@ -17,7 +17,7 @@ body {
 }
 
 #clockbody {
-    width: 40pc;
+    width: 30pc;
     height: 25pc;
     margin-left: auto;
     margin-right: auto;
@@ -25,7 +25,27 @@ body {
     color: #fff;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr 1fr 1fr 2fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 2fr;
+}
+
+#sessionindicator {
+    grid-column: span 2;
+    text-align: center;
+    border-top: 10px solid #aaa;
+}
+
+#sessiontype {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+
+#timer {
+    grid-column: span 2;
+    font-size: 40px;
+    text-align:center;
+    padding: 0px;
+    margin: 0px;
 }
 
 .headercontrol {
@@ -78,11 +98,3 @@ body {
 .footercontrol:hover {
     color: #aaa;
 }
-
-#timer {
-    grid-column: span 2;
-    border-top: 10px solid #aaa;
-    font-size: 60px;
-    text-align:center;
-}
-
