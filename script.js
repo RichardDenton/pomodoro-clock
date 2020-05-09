@@ -36,7 +36,7 @@ const updateSessionLimit = function(type) {
             break;
     }
     sessionTimeLimit.textContent = sessionLimit;
-    updateTimerText(timeToString(sessionLimit, 0));
+    updateTimerText(timeToString(sessionLimit * 60, 0));
 }
 
 const updateBreakTime = function(type) {
@@ -61,11 +61,22 @@ const updateTimerText = function(timeString) {
     timerText.textContent = timeString;
 }
 
-const timeToString = function(minutes, seconds) {
-    let minuteString;
-    let secondString;
+const timeToString = function(totalSeconds) {
+    let hours = 0;
+    let minutes = 0;
+    let seconds = 0;
 
-    // Ensure that minutes and seconds are two digits
+    let hourString = '';
+    let minuteString = '';
+    let secondString = '';
+    
+    minutes = Math.floor(totalSeconds / 60);
+    seconds = totalSeconds % 60;
+
+    hours = Math.floor(minutes / 60);
+    minutes = minutes % 60;
+    
+    // Ensure that hours, minutes and seconds are two digits
     if (minutes < 10){
         minuteString = "0" + minutes;
     } else {
@@ -77,12 +88,23 @@ const timeToString = function(minutes, seconds) {
     } else {
         secondString = seconds;
     }
-    return minuteString + ":" + secondString;
+    
+    if (hours < 10) {
+        hourString = "0" + hours;
+    } else {
+        hourString = hours;
+    }
+    
+    if (hours > 0) {
+        return hourString + ":" + minuteString + ":" + secondString;
+    } else {
+        return minuteString + ":" + secondString;
+    }
 }
 
 // Timer maximum values
 const LOWER_LIMIT = 1;
-const UPPER_LIMIT = 99;
+const UPPER_LIMIT = 120;
 
 const sessionTimeLimit = document.getElementById('sessiontimelimit');
 const breakTimeLimit = document.getElementById('breaktimelimit');
