@@ -1,5 +1,5 @@
 const buttonClick = function(e) {
-    if (!clockRunning) {
+    if (!clockRun) {
         switch (this.id) {
             case 'decreasetime':
             case 'increasetime':
@@ -10,7 +10,6 @@ const buttonClick = function(e) {
                 updateBreakTime(this.id);
                 break;
             case 'start':
-                clockRunning = true;
                 clockRun = setInterval(runClock, 1000);
                 break;
         }
@@ -77,7 +76,9 @@ const runClock = function() {
     timeLeft = findNumberOfSeconds();
     timeLeft--;
     updateTimerText(timeLeft);
+    document.title = timerText.textContent;
     if (timeLeft === 0) {
+        alarmSound.play();
         changeSessionType();
         timeLeft = findNumberOfSeconds();
     }
@@ -157,7 +158,8 @@ const changeSessionType = function() {
 
 const stopClock = function() {
     clearInterval(clockRun);
-    clockRunning = false;
+    clockRun = false;
+    document.title = "Pomodoro Clock";
 }
 
 const reset = function() {
@@ -172,8 +174,8 @@ const LOWER_LIMIT = 1;
 const UPPER_LIMIT = 120;
 
 // Global Variables
-let clockRunning = false;
 let clockRun = false;
+let alarmSound = new Audio('Twin-bell-alarm-clock.mp3');
 
 // DOM objects
 const sessionType = document.getElementById('sessiontype');
