@@ -10,14 +10,14 @@ const buttonClick = function(e) {
                 updateBreakTime(this.id);
                 break;
             case 'start':
-                runClock();
+                clockRunning = true;
+                clockRun = setInterval(runClock, 1000);
                 break;
         }
     }
     switch (this.id) {
         case 'stop':
-            clearInterval(timer);    
-            clockRunning = false;
+            stopClock();
             break;
         case 'reset':
             reset();
@@ -74,20 +74,13 @@ const updateBreakTime = function(type) {
 }
 
 const runClock = function() {
-    let timeLeft = findNumberOfSeconds();
-    clockRunning = true;
-
-    let timer = setInterval(function() {
-        if (!clockRunning) {
-            clearInterval(timer);
-        }
-        timeLeft--;
-        updateTimerText(timeLeft);
-        if (timeLeft === 0) {
-            changeSessionType();
-            timeLeft = findNumberOfSeconds();
-        }
-    }, 1000)
+    timeLeft = findNumberOfSeconds();
+    timeLeft--;
+    updateTimerText(timeLeft);
+    if (timeLeft === 0) {
+        changeSessionType();
+        timeLeft = findNumberOfSeconds();
+    }
 }
 
 const updateTimerText = function(totalSeconds) {
@@ -162,10 +155,14 @@ const changeSessionType = function() {
     }
 }
 
-const reset = function() {
-    sessionType.textContent = "Session";
-    clearInterval(timer);
+const stopClock = function() {
+    clearInterval(clockRun);
     clockRunning = false;
+}
+
+const reset = function() {
+    stopClock()
+    sessionType.textContent = "Session";
     updateSessionLimit('reset');
     updateBreakTime('reset');
 }
@@ -174,13 +171,16 @@ const reset = function() {
 const LOWER_LIMIT = 1;
 const UPPER_LIMIT = 120;
 
+// Global Variables
 let clockRunning = false;
-let timer = true;
+let clockRun = false;
 
+// DOM objects
 const sessionType = document.getElementById('sessiontype');
 const sessionTimeLimit = document.getElementById('sessiontimelimit');
 const breakTimeLimit = document.getElementById('breaktimelimit');
 const timerText = document.getElementById('timertext');
 
+// Event listeners
 const buttons = document.querySelectorAll("button");
 buttons.forEach(button => button.addEventListener('click', buttonClick));
