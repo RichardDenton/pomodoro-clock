@@ -2,51 +2,57 @@
 <html>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="icon" href="clock.png">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet"> 
     <title>Pomodoro Clock</title>
-</html>
 
-<body>
-    <div id="main">
-        <div id="header">
-            <h1 id="title">Pomodoro Clock</h1>
+    <body>
+        <div id="main">
+            <div id="header">
+                <h1 id="title">Pomodoro Clock</h1>
+            </div>
+            <div id="clockbody">
+                <div class="headercontrol top">Session</div>
+                <div class="headercontrol top">Break</div>
+                <div class="headercontrol">
+                    <div class="timelimit">
+                        <p>
+                            <button class="decrease settimebutton" id="decreasetime">▼</button>
+                            <span id="sessiontimelimit">25</span>
+                            <button class="increase settimebutton" id="increasetime">▲</button>
+                        </p>
+                    </div>
+                </div>
+                <div class="headercontrol">
+                    <div class="timelimit">
+                        <p>
+                            <button class="decrease settimebutton" id="decreasebreak">▼</button>
+                            <span id="breaktimelimit">5</span>
+                            <button class="increase settimebutton" id="increasebreak">▲</button>
+                        </p>
+                    </div>
+                </div>
+                <div id="sessionindicator">
+                    <p id="sessiontype">Session</p>
+                </div>
+                <div id="timer">
+                    <p id="timertext">25:00</p>
+                </div>
+                <div class="footer">
+                    <div id="playcontrol">
+                        <button class="footercontrol" id="start">▶</button>
+                    </div>
+                    <div id="stopcontrol">
+                        <button class="footercontrol" id="stop">■</button>
+                    </div>
+                    <div id="resetcontrol">
+                        <button class="footercontrol" id="reset">↻</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="clockbody">
-            <div class="headercontrol top">Session</div>
-            <div class="headercontrol top">Break</div>
-            <div class="headercontrol">
-                <div class="timelimit">
-                    <p>
-                        <button class="decrease settimebutton">▼</button>
-                        25:00
-                        <button class="increase settimebutton">▲</button>
-                    </p>
-                </div>
-            </div>
-            <div class="headercontrol">
-                <div class="timelimit">
-                    <p>
-                        <button class="decrease settimebutton">▼</button>
-                        05:00
-                        <button class="increase settimebutton">▲</button>
-                    </p>
-                </div>
-            </div>
-            <div id="timer">
-                <p class="timertext">25:00</p>
-            </div>
-            <div class="footer">
-                <div id="playcontrol">
-                    <button class="play footercontrol">▶</button>
-                </div>
-                <div id="stopcontrol">
-                    <button class="stop footercontrol">■</button>
-                </div>
-                <div id="resetcontrol">
-                    <button class="reset footercontrol">↻</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
+    </body>
+
+    <script src="script.js"></script>
+</html>
