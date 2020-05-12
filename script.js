@@ -178,8 +178,8 @@ const LOWER_LIMIT = 1;
 const UPPER_LIMIT = 120;
 
 // Global Variables
-let clockRun = false;
-let clockPaused = true;
+let clockRun = false;       // Session cannot be adjusted whilst clockRun is true
+let clockPaused = true;     // Clock can only be started when clockPaused is true
 let alarmSound = new Audio('Twin-bell-alarm-clock.mp3');
 
 // DOM objects
