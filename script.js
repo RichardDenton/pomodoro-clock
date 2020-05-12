@@ -9,14 +9,16 @@ const buttonClick = function(e) {
             case 'increasebreak':
                 updateBreakTime(this.id);
                 break;
-            case 'start':
-                clockRun = setInterval(runClock, 1000);
-                break;
         }
     }
     switch (this.id) {
-        case 'stop':
-            stopClock();
+        case 'start':
+        if (clockPaused) {
+            clockRun = setInterval(runClock, 1000);
+        }
+            break;
+        case 'pause':
+            pauseClock();
             break;
         case 'reset':
             reset();
@@ -73,10 +75,11 @@ const updateBreakTime = function(type) {
 }
 
 const runClock = function() {
+    clockPaused = false;
     timeLeft = findNumberOfSeconds();
     timeLeft--;
     updateTimerText(timeLeft);
-    document.title = timerText.textContent;
+    document.title = timerText.textContent + " " + sessionType.textContent;
     if (timeLeft === 0) {
         alarmSound.play();
         changeSessionType();
@@ -156,14 +159,15 @@ const changeSessionType = function() {
     }
 }
 
-const stopClock = function() {
+const pauseClock = function() {
+    clockPaused = true;
     clearInterval(clockRun);
-    clockRun = false;
     document.title = "Pomodoro Clock";
 }
 
 const reset = function() {
-    stopClock()
+    pauseClock()
+    clockRun = false;
     sessionType.textContent = "Session";
     updateSessionLimit('reset');
     updateBreakTime('reset');
@@ -175,6 +179,7 @@ const UPPER_LIMIT = 120;
 
 // Global Variables
 let clockRun = false;
+let clockPaused = true;
 let alarmSound = new Audio('Twin-bell-alarm-clock.mp3');
 
 // DOM objects
